@@ -8,6 +8,7 @@ export async function handleForm(
 ) {
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
+  await new Promise(resolve => setTimeout(resolve, 2000)); 
 
   if (password === "12345") {
     redirect("/dashboard");
