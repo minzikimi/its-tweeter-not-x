@@ -10,6 +10,7 @@ export default function Home() {
     errors: {
       email: [],
       password: [],
+      username :[],
     },
   });
 
@@ -26,6 +27,29 @@ export default function Home() {
           Log-in
         </h1>
         <form action={dispatch} className="space-y-4">
+        <Input
+            type="text"
+            name="username"
+            placeholder="Username"
+            required
+            errors={state.errors.username}
+            icon={
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="w-5 h-5"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.5 20.25v-.75A6.75 6.75 0 0 1 11.25 12.75h1.5a6.75 6.75 0 0 1 6.75 6.75v.75"
+                />
+              </svg>
+            }
+          />
         <Input
         type="email"
         name="email"
