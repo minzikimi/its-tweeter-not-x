@@ -20,8 +20,6 @@ export default function Input({
   name,
   errors = [],
   icon,
-  minLength,
-  maxLength, 
 }: InputProps) {
   return (
     <div className="flex flex-col gap-1">

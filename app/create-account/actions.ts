@@ -69,7 +69,7 @@ const formSchema = z
     }
   });
 
-export async function createAccount(prevState: any, formData: FormData) {
+export async function createAccount(prevState: unknown, formData: FormData) {
   const data = {
     username: formData.get("username"),
     email: formData.get("email"),
@@ -105,8 +105,8 @@ export async function createAccount(prevState: any, formData: FormData) {
     });
 
    
-    //@ts-ignore
-    cookie.id = user.id;
+  // @ts-expect-error: iron-session 타입에 id가 명시되어 있지 않음. 세션에 사용자 id를 임시로 저장하기 위함.
+  cookie.id = user.id;
     await cookie.save();
 
 
