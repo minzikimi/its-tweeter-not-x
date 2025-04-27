@@ -3,24 +3,18 @@
 import Button from "@/components/btn";
 import Input from "@/components/input";
 import { useActionState } from "react";
-import { handleForm } from "./action";
-import db from "@/lib/db";
+import { login } from "./actions";
+import Link from "next/link";
 
 export default function Home() {
-  const [state, dispatch] = useActionState(handleForm, {
-    errors: {
-      email: [],
-      password: [],
-      username :[],
-    },
-  });
+  const [state, dispatch] = useActionState(login, null);
 
   return (
     <main
       className="p-8 min-h-screen bg-cover bg-center flex justify-center items-center"
       style={{ backgroundImage: "url('/images/y2kbg.jpg')" }}
     >
-      <div className="bg-white p-8 min-w-md">
+      <div className="bg-white p-8 min-w-md rounded-md">
         <h1
           className="text-5xl font-bold text-center mb-6 text-gray-800"
           style={{ fontFamily: "RocketPop" }}
@@ -28,35 +22,13 @@ export default function Home() {
           Log-in
         </h1>
         <form action={dispatch} className="space-y-4">
-        <Input
-            type="text"
-            name="username"
-            placeholder="Username"
-            required
-            errors={state.errors.username}
-            icon={
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                stroke="currentColor"
-                className="w-5 h-5"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.5 20.25v-.75A6.75 6.75 0 0 1 11.25 12.75h1.5a6.75 6.75 0 0 1 6.75 6.75v.75"
-                />
-              </svg>
-            }
-          />
+      
         <Input
         type="email"
         name="email"
         placeholder="Email"
         required
-        errors={state.errors.email}
+        errors={state?.fieldErrors.email}
         icon={
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -80,7 +52,7 @@ export default function Home() {
         name="password"
         placeholder="Password"
         required
-        errors={state.errors.password}
+        errors={state?.fieldErrors.password}
         icon={
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -99,6 +71,12 @@ export default function Home() {
         }
       />
           <Button text="Log in" />
+          <Link
+            href="/create-account"
+            className="block text-center text-sm text-neutral-800 hover:underline mt-4"
+          >
+            Create an account
+          </Link>
         </form>
       </div>
     </main>

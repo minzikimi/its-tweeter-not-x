@@ -9,6 +9,8 @@ interface InputProps {
   name: string;
   errors?: string[];
   icon?: ReactNode; 
+  minLength?: number;  
+  maxLength?: number;
 }
 
 export default function Input({
@@ -18,6 +20,8 @@ export default function Input({
   name,
   errors = [],
   icon,
+  minLength,
+  maxLength, 
 }: InputProps) {
   return (
     <div className="flex flex-col gap-1">
