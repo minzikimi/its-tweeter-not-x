@@ -1,7 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import {boolean, z} from "zod";
+import {z} from "zod";
 
 
 function checkUserName (username:string):boolean{

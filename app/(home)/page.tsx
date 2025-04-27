@@ -4,6 +4,7 @@ import Button from "@/components/btn";
 import Input from "@/components/input";
 import { useActionState } from "react";
 import { handleForm } from "./action";
+import db from "@/lib/db";
 
 export default function Home() {
   const [state, dispatch] = useActionState(handleForm, {
