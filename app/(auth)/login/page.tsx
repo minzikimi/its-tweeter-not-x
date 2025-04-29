@@ -6,7 +6,7 @@ import { useActionState } from "react";
 import { login } from "./actions";
 import Link from "next/link";
 
-export default function Home() {
+export default function Login() {
   const [state, dispatch] = useActionState(login, null);
 
   return (

@@ -7,8 +7,6 @@ import { createAccount } from "./actions";
 import { PASSWORD_MIN_LENGTH } from "@/lib/constants";
 
 
-
-
 export default function CreateAccount() {
  
   const [state, dispatch] = useActionState(createAccount, null);

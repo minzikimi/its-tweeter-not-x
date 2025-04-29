@@ -1,3 +1,4 @@
+
 "use server";
 
 import { z } from "zod";
@@ -105,7 +106,7 @@ export async function createAccount(prevState: unknown, formData: FormData) {
     });
 
    
-  // @ts-expect-error: iron-session 타입에 id가 명시되어 있지 않음. 세션에 사용자 id를 임시로 저장하기 위함.
+  // @ts-expect-error: iron-session  there is no type for the id, so i add this to add user id to sesson temporarily
   cookie.id = user.id;
     await cookie.save();
 

@@ -1,11 +1,11 @@
-"use client";
+"use client"; 
 
-import { ReactNode } from "react";
+//if i have time refactor..
+
+import { InputHTMLAttributes, ReactNode } from "react";
 
 interface InputProps {
-  type: string;
-  placeholder: string;
-  required?: boolean;
+
   name: string;
   errors?: string[];
   icon?: ReactNode; 
@@ -20,7 +20,7 @@ export default function Input({
   name,
   errors = [],
   icon,
-}: InputProps) {
+}: InputProps & InputHTMLAttributes<HTMLInputElement>) {
   return (
     <div className="flex flex-col gap-1">
       <div className="relative">

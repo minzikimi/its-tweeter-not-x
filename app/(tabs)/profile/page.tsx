@@ -1,3 +1,4 @@
+
 import db from "@/lib/db";
 import getSession from "@/lib/session";
 import { notFound, redirect } from "next/navigation";
@@ -23,7 +24,7 @@ import { notFound, redirect } from "next/navigation";
      "use server";
      const session = await getSession();
       session.destroy();
-     redirect("/");
+     redirect("/login");
    };
    return (
     <main
