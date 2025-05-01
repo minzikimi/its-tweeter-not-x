@@ -16,7 +16,7 @@ export default function CreateAccount() {
       className="p-8 min-h-screen bg-cover bg-center flex justify-center items-center"
       style={{ backgroundImage: "url('/images/y2kbg.jpg')" }}
     >
-      <div className="bg-white p-8 min-w-md w-full max-w-md rounded-md shadow-md">
+      <div className="bg-white p-8 min-w-md w-full max-w-md">
         <div className="flex flex-col gap-2 mb-6 text-center">
           <h1 className="text-3xl font-bold text-gray-800">Hej!</h1>
           <h2 className="text-lg text-gray-600">Fill in the form below to join!</h2>

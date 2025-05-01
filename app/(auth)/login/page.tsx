@@ -12,12 +12,10 @@ export default function Login() {
   return (
     <main
       className="p-8 min-h-screen bg-cover bg-center flex justify-center items-center"
-      style={{ backgroundImage: "url('/images/y2kbg.jpg')" }}
     >
       <div className="bg-white p-8 min-w-md rounded-md">
         <h1
           className="text-5xl font-bold text-center mb-6 text-gray-800"
-          style={{ fontFamily: "RocketPop" }}
         >
           Log-in
         </h1>

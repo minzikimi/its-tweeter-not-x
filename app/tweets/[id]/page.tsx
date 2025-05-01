@@ -1,41 +1,34 @@
-import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
-import db from "@/lib/db";
+// app/tweets/[id]/page.tsx
 
-interface Tweet {
-  id: number;
-  tweet: string;  
-  created_at: Date;  
-  updated_at: Date;
-  userId: number;
+import db from "@/lib/db";
+import { notFound } from "next/navigation";
+
+async function getTweet(id: number) {
+  return db.tweet.findUnique({
+    where: { id },
+  });
 }
 
-export default function TweetDetail() {
-  const router = useRouter();
-  const { id } = router.query;
-  const [tweet, setTweet] = useState<Tweet | null>(null);  
-
-  useEffect(() => {
-    if (id) {
-      const fetchTweet = async () => {
-        const tweetData = await db.tweet.findUnique({
-          where: { id: parseInt(id as string) },
-        });
-        setTweet(tweetData); 
-      };
-
-      fetchTweet();
-    }
-  }, [id]);
-
+export default async function TweetDetail({
+  params,
+}: {
+  params: { id: string };
+}) {
+  const id = Number(params.id);
+  if (isNaN(id)) {
+    return notFound();
+  }
+  const tweet = await getTweet(id);
   if (!tweet) {
-    return <div>Loading...</div>;
+    return notFound();
   }
 
   return (
     <div className="p-4">
-      <h1 className="text-2xl ">{tweet.tweet}</h1> 
-      <p className="text-sm">Posted on {tweet.created_at.toString()}</p> 
+      <h1 className="text-2xl font-bold mb-2">{tweet.tweet}</h1>
+      <p className="text-sm text-gray-500 mb-8">
+        Posted on {tweet.created_at.toLocaleString()}
+      </p>
       <div className="mt-4">
         <button className="px-4 py-2">Reply</button>
       </div>
