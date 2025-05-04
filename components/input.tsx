@@ -36,9 +36,10 @@ export default function Input({
           name={name}
           required={required}
           placeholder={placeholder}
-          className={`mt-1 p-2 w-full border border-gray-300 rounded-md focus:ring-[#68d9c6] focus:border-[#68d9c6] ${
-            icon ? "pl-10" : ""
-          }`}
+          className={`mt-1 p-3 w-full border border-neutral-700 bg-neutral-900 text-white rounded-md 
+            focus:ring-neutral-300 focus:border-neutral-200 
+            placeholder:text-neutral-400 transition
+            ${icon ? "pl-10" : ""}`}
         />
       </div>
 

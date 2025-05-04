@@ -1,27 +1,28 @@
-// app/tweets/[id]/page.tsx
-
 import db from "@/lib/db";
 import { notFound } from "next/navigation";
+import LikeButton from "@/components/like-button";
+import Responses from "@/components/responses";
+import getSession from "@/lib/session";
 
 async function getTweet(id: number) {
   return db.tweet.findUnique({
     where: { id },
+    include: {
+      likes: true,
+      responses: { include: { user: true } },
+      user: true,
+    },
   });
 }
 
-export default async function TweetDetail({
-  params,
-}: {
-  params: { id: string };
-}) {
+export default async function TweetDetail({ params }) {
   const id = Number(params.id);
-  if (isNaN(id)) {
-    return notFound();
-  }
+  if (isNaN(id)) return notFound();
   const tweet = await getTweet(id);
-  if (!tweet) {
-    return notFound();
-  }
+  if (!tweet) return notFound();
+
+  const session = await getSession();
+  const isLiked = tweet.likes.some(like => like.userId === session?.id);
 
   return (
     <div className="p-4">
@@ -29,8 +30,20 @@ export default async function TweetDetail({
       <p className="text-sm text-gray-500 mb-8">
         Posted on {tweet.created_at.toLocaleString()}
       </p>
-      <div className="mt-4">
-        <button className="px-4 py-2">Reply</button>
+      <LikeButton
+        isLiked={isLiked}
+        likeCount={tweet.likes.length}
+        tweetId={tweet.id}
+      />
+      <div className="mt-8">
+        <Responses
+          initialResponses={tweet.responses.map(r => ({
+            ...r,
+            text: r.content, 
+          }))}
+          tweetId={tweet.id}
+          username={session?.username ?? "Anonymous"}
+        />
       </div>
     </div>
   );

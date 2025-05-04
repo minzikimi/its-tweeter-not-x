@@ -2,7 +2,7 @@ import Button from "@/components/btn";
 import db from "@/lib/db";
 import getSession from "@/lib/session";
 import { notFound, redirect } from "next/navigation";
- 
+
 async function getUser() {
   const session = await getSession();
   if (session.id) {
@@ -17,7 +17,7 @@ async function getUser() {
   }
   notFound();
 }
- 
+
 export default async function Profile() {
   const user = await getUser();
   const logOut = async () => {
@@ -27,15 +27,13 @@ export default async function Profile() {
     redirect("/login");
   };
   return (
-    <main className="p-8 min-h-screen flex justify-center items-center">
-      <div className="bg-white shadow-xl rounded-2xl p-10 min-w-[320px] flex flex-col items-center">
-        <h1 className="text-4xl font-bold text-gray-800 mb-4">
-          Welcome! <span className="text-neutral-500">{user?.username}</span>!
-        </h1>
-        <form action={logOut} className="w-full flex flex-col items-center">
-          <Button text="Log out"></Button>
-        </form>
-      </div>
+    <main className="p-8 min-h-screen bg-black text-white flex flex-col justify-center items-center gap-6">
+      <h1 className="text-4xl font-bold text-neutral-400">
+        Welcome <span className="text-white ">{user?.username}</span>!
+      </h1>
+      <form action={logOut} className="w-full max-w-xs flex flex-col items-center">
+        <Button text="Log out" />
+      </form>
     </main>
   );
 }

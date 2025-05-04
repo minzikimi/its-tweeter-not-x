@@ -21,3 +21,15 @@ export async function getMoreTweets(page: number) {
 
   return tweets;
 }
+
+
+export async function deleteTweet(id: number) {
+  try {
+    await db.tweet.delete({
+      where: { id },
+    });
+    return { isSuccess: true };
+  } catch (error) {
+    return { isSuccess: false, error: "삭제에 실패했습니다." };
+  }
+}
