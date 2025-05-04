@@ -1,34 +1,39 @@
+"use client";
 import { useOptimistic } from "react";
-import { useFormState } from "react-dom";
+import { useActionState } from "react";
 import { addTweetResponse } from "@/service/response-service";
 import { z } from "zod";
 
 interface User {
-    id: number;
-    username: string;
-  }
-  
-  interface ResponseItem {
-    id: number;
-    text: string;
-    created_at: Date | string;
-    tweetId: number;
-    user: User;
-  }
-  
-  interface ResponsesProps {
-    initialResponses: ResponseItem[];
-    tweetId: number;
-    username: string;
-  }
-  
-  export default function Responses({ initialResponses, tweetId, username }: ResponsesProps) {
+  id: number;
+  username: string;
+}
+
+interface ResponseItem {
+  id: number;
+  text: string;
+  created_at: Date | string;
+  tweetId: number;
+  user: User;
+}
+
+interface ResponsesProps {
+  initialResponses: ResponseItem[];
+  tweetId: number;
+  username: string;
+}
+
+type FormState = {
+  fieldErrors?: { text?: string[] };
+} | null;
+
+export default function Responses({ initialResponses, tweetId, username }: ResponsesProps) {
   const responseSchema = z
     .string({ required_error: "Response is required." })
     .trim()
     .max(200, "Response must be 200 characters or less.");
 
-  // useOptimistic에 타입지정..
+
   const [responses, addResponse] = useOptimistic<ResponseItem[], string>(
     initialResponses,
     (prev, newText) => [
@@ -43,18 +48,20 @@ interface User {
     ]
   );
 
-  const handleSubmit = (_: unknown, formData: FormData) => {
+  const handleSubmit = async (prevState: FormState, formData: FormData): Promise<FormState> => {
     const text = formData.get("text");
     const validation = responseSchema.safeParse(text);
     if (validation.success) {
       addResponse(validation.data);
-      addTweetResponse(formData);
+      await addTweetResponse(formData);
+      return null;
     } else {
-      return validation.error.flatten();
+      return { fieldErrors: { text: validation.error.flatten().formErrors } };
     }
   };
 
-  const [state, action] = useFormState(handleSubmit, null);
+
+  const [state, action] = useActionState<FormState, FormData>(handleSubmit, null);
 
   return (
     <div className="flex flex-col gap-3 w-full">
@@ -70,7 +77,7 @@ interface User {
         <button className="ml-auto p-3 rounded-xl bg-gray-300 min-w-[56px]">Add</button>
       </form>
       {state?.fieldErrors?.text && (
-        <span className="text-sm text-red-500">{state.fieldErrors.text}</span>
+        <span className="text-sm text-red-500">{state.fieldErrors.text.join(", ")}</span>
       )}
       {responses.map((res) => (
         <div key={res.id} className="flex items-center gap-4 my-2 text-base">

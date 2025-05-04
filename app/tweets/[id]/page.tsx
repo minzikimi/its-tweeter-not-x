@@ -14,11 +14,17 @@ async function getTweet(id: number) {
     },
   });
 }
-
-export default async function TweetDetail({ params }) {
+export default async function TweetDetail({ params }: { params: { id: string } }) {
   const id = Number(params.id);
   if (isNaN(id)) return notFound();
-  const tweet = await getTweet(id);
+  const tweet = await db.tweet.findUnique({
+    where: { id },
+    include: {
+      likes: true,
+      responses: { include: { user: true } },
+      user: true,
+    },
+  });
   if (!tweet) return notFound();
 
   const session = await getSession();
@@ -39,7 +45,7 @@ export default async function TweetDetail({ params }) {
         <Responses
           initialResponses={tweet.responses.map(r => ({
             ...r,
-            text: r.content, 
+            text: r.content,
           }))}
           tweetId={tweet.id}
           username={session?.username ?? "Anonymous"}

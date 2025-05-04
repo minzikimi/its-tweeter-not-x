@@ -1,6 +1,6 @@
 "use client";
 import { useActionState } from "react";
-import { uploadTweet } from "@/service/tweetService";
+import { uploadTweet } from "@/service/tweet-service";
 
 export default function AddTweet() {
   const [state, action] = useActionState(uploadTweet, null);
