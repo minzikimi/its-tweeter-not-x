@@ -11,7 +11,7 @@ export async function likeTweet(tweetId: number) {
       data: { tweetId, userId: session.id },
     });
     revalidateTag(`like-status-${tweetId}`);
-  } catch (e) {
+  } catch  {
 //
   }
 }
@@ -30,6 +30,6 @@ export async function dislikeTweet(tweetId: number) {
       },
     });
     revalidateTag(`like-status-${tweetId}`);
-  } catch (e) {
+  } catch  {
   }
 }
