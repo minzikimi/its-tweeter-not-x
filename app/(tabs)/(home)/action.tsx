@@ -29,7 +29,7 @@ export async function deleteTweet(id: number) {
       where: { id },
     });
     return { isSuccess: true };
-  } catch (error) {
-    return { isSuccess: false, error: "삭제에 실패했습니다." };
+  } catch {
+    return { isSuccess: false, error: "Failed to delete." };
   }
 }

@@ -14,7 +14,7 @@ export default function AddTweet() {
           name="tweet"
           required
           placeholder="What is happening?!"
-          className="w-full p-4 rounded-lg resize-none bg-neutral-800 text-white text-base placeholder:text-base placeholder:text-neutral-400 border border-neutral-700 focus:outline-none focus:border-blue-500 transition"
+          className="w-full p-4 rounded-lg resize-none bg-neutral-800 text-white text-base placeholder:text-base placeholder:text-neutral-400 border border-neutral-700 focus:outline-none focus:border-neutral-500 transition"
           rows={3}
         />
         {!state?.isSuccess && (

@@ -110,7 +110,7 @@ export default function TweetList({ initialTweets }: TweetListProps) {
           >
             ← Previous
           </button>
-          <span className="self-center text-sm text-gray-400">Page {page + 1}</span>
+          <span className="self-center text-sm text-gray-400">{page + 1}</span>
           <button
             onClick={handleNext}
             disabled={isLastPage}

@@ -17,14 +17,7 @@ async function getTweet(id: number) {
 export default async function TweetDetail({ params }: { params: { id: string } }) {
   const id = Number(params.id);
   if (isNaN(id)) return notFound();
-  const tweet = await db.tweet.findUnique({
-    where: { id },
-    include: {
-      likes: true,
-      responses: { include: { user: true } },
-      user: true,
-    },
-  });
+  const tweet = await getTweet(id);
   if (!tweet) return notFound();
 
   const session = await getSession();
