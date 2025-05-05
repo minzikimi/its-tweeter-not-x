@@ -65,17 +65,27 @@ export default function Responses({ initialResponses, tweetId, username }: Respo
 
   return (
     <div className="flex flex-col gap-3 w-full">
-      <form action={action} className="flex gap-2 w-full">
-        <input
-          name="text"
-          type="text"
-          placeholder="Write a response"
-          required
-          className="flex-1 p-2 border rounded"
-        />
-        <input type="hidden" name="tweetId" value={tweetId} />
-        <button className="ml-auto p-3 rounded-xl bg-gray-300 min-w-[56px]">Add</button>
-      </form>
+     <form action={action} className="flex gap-2 w-full">
+      <input
+        name="text"
+        type="text"
+        placeholder="Write a response"
+        required
+        className="flex-1 p-2 border-1 border-neutral-500 rounded bg-neutral-900 text-white"
+      />
+      <input type="hidden" name="tweetId" value={tweetId} />
+      <button
+        className="cursor-pointer
+            px-6 py-2 rounded-md border border-[#7ff5dd]
+            bg-transparent text-[#7ff5dd] text-base
+            hover:bg-[#7ff5dd] hover:text-black
+            transition-colors duration-150
+            disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        Add
+      </button>
+    </form>
+
       {state?.fieldErrors?.text && (
         <span className="text-sm text-red-500">{state.fieldErrors.text.join(", ")}</span>
       )}
