@@ -2,6 +2,7 @@ import Button from "@/components/btn";
 import db from "@/lib/db";
 import getSession from "@/lib/session";
 import { notFound, redirect } from "next/navigation";
+import Link from "next/link";
 
 async function getUser() {
   const session = await getSession();
@@ -31,6 +32,12 @@ export default async function Profile() {
       <h1 className="text-4xl font-bold text-neutral-400">
         Welcome <span className="text-white ">{user?.username}</span>!
       </h1>
+      <Link
+        href={`/users/${user.username}/edit`}
+        className="text-[#7ff5dd] underline hover:text-[#68d9c6] transition-colors"
+      >
+        Edit Profile
+      </Link>
       <form action={logOut} className="w-full max-w-xs flex flex-col items-center">
         <Button text="Log out" />
       </form>

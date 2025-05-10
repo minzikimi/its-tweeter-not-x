@@ -1,17 +1,24 @@
-// app/users/[username]/edit/page.tsx
-"use client";
-import { useFormState } from "react-dom";
-import { updateProfile } from "./actions";
+import db from "@/lib/db";
+import getSession from "@/lib/session";
+import { notFound } from "next/navigation";
+import EditProfileForm from "./edit-profile";
 
-export default function EditProfile() {
-  const [state, action] = useFormState(updateProfile, null);
-  
-  return (
-    <form action={action}>
-      <input name="username" />
-      <input name="email" type="email" />
-      <textarea name="bio" />
-      <button>Update</button>
-    </form>
-  );
+export default async function EditProfilePage({ params }: { params: Promise<{ username: string }> }) {
+  const session = await getSession();
+  if (!session?.id) notFound();
+
+  const { username } = await params;
+
+  const user = await db.user.findUnique({
+    where: { username },
+    select: { id: true, username: true, email: true, bio: true },
+  });
+
+  if (!user) notFound();
+  if (session.id !== user.id) notFound(); // id로 비교!
+
+  return <EditProfileForm user={{
+    ...user,
+    bio: user.bio ?? undefined,
+  }} />;
 }

@@ -71,7 +71,7 @@ export default function TweetList({ initialTweets }: TweetListProps) {
             <div className="flex-1">
               <Link
                 href={`/tweets/${tweet.id}`}
-                className="text-lg font-medium hover:text-blue-400 text-white transition-colors"
+                className="text-lg font-medium text-white transition-colors"
               >
                 {tweet.tweet}
               </Link>
@@ -81,7 +81,7 @@ export default function TweetList({ initialTweets }: TweetListProps) {
             </div>
             <button
               onClick={() => openDeleteModal(tweet.id)}
-              className="ml-4 p-2 text-gray-400 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100"
+              className="ml-4 p-2 text-gray-400 hover:neutral-300 transition-colors opacity-0 group-hover:opacity-100"
               title="Delete tweet"
             >
               <svg

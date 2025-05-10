@@ -4,6 +4,8 @@ import { notFound } from "next/navigation";
 import getSession from "@/lib/session"; 
 
 export default async function Profile({ params }: { params: { username: string } }) {
+
+  const { username } = await params;
   const user = await db.user.findUnique({
     where: { username: params.username },
     include: { tweets: true },
